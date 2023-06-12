@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import os
+from dotenv import load_dotenv
 
 # init SQLAlchemy so we can use it later in our models
 db = SQLAlchemy()
@@ -8,7 +10,11 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'secret-key-goes-here'
+    # load configuration file
+    load_dotenv('.env')
+    secret_key = os.getenv('SECRET_KEY')
+
+    app.config['SECRET_KEY'] = secret_key
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
     db.init_app(app)
@@ -38,12 +44,3 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
-    # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
-    # db.init_app(app)
-    #
-    # from . import models
-    #
-    # with app.app_context():
-    #     db.create_all()
-    #
-    # return app
