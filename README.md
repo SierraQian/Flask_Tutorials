@@ -1,3 +1,5 @@
 # Flask_Tutorials
 
-vitual environment folder is not here because of the git ignore file
+The virtual environment folder is not here because of the git ignore file
+
+Finished Flask App - Full Blog Example with extras
