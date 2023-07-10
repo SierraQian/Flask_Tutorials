@@ -1,10 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Flask Login Example
-</h1>
-<h2 class="subtitle">
-  Easy authentication and authorization in Flask.
-</h2>
+    <h1>{% block title %} Welcome to FlaskBlog {% endblock %}</h1>
+<!--<h1 class="title">-->
+<!--  Flask Login Example-->
+<!--</h1>-->
+<!--<h2 class="subtitle">-->
+<!--  Easy authentication and authorization in Flask.-->
+<!--</h2>-->
+    {% for post in posts %}
+        <a href="{{ url_for('main.post', post_id=post['id']) }}">
+            <h2>{{ post['title'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ post['created'] }}</span>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.edit', id=post['id']) }}">
+            <span class="badge badge-warning">Edit</span>
+        </a>
+        {% endif %}
+        <hr>
+    {% endfor %}
 {% endblock %}
